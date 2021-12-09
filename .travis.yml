@@ -1,0 +1,22 @@
+language: python
+python:
+  - 3.6
+before_install:
+  - python --version
+  - pip install -U pip
+install:
+  - pip install -r requirements.txt
+addons:
+  sonarcloud:
+    organization: "robert-workspaces"
+script:
+  - pytest -v  --cov --cov-report=xml --cov-report=html
+  - behave ./test_aceptance/
+  - sonar-scanner
+
+notifications:
+  email:
+    recipients:
+    - bj112143@gmail.com
+    on_success: always
+    on_failure: always
